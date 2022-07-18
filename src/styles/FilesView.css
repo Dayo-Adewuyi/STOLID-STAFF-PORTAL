@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@500&display=swap");
+
+.fileView {
+  width: 81vw;
+}
+
+.fileView__row {
+  height: 250px;
+  display: flex;
+  align-items: center;
+}
+
+.fileView__titles {
+  display: flex;
+  margin-bottom: 5px;
+  color: rgb(85, 78, 78);
+}
+
+.fileView__titles > div > * {
+  margin: 5px;
+}
+
+.fileView__titles--left {
+  flex: 1;
+}
+
+.fileView__titles--right {
+  display: flex;
+}
+.word {
+  font-family: "Cormorant Infant", serif;
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  color: #313131;
+  font-size: 45px;
+  font-weight: bold;
+  position: absolute;
+  -webkit-animation: colorchange 20s infinite alternate;
+}
+
+@-webkit-keyframes colorchange {
+  0% {
+    color: blue;
+  }
+
+  10% {
+    color: #8e44ad;
+  }
+
+  20% {
+    color: #1abc9c;
+  }
+
+  30% {
+    color: #d35400;
+  }
+
+  40% {
+    color: blue;
+  }
+
+  50% {
+    color: #34495e;
+  }
+
+  60% {
+    color: blue;
+  }
+
+  70% {
+    color: #2980b9;
+  }
+  80% {
+    color: #f1c40f;
+  }
+
+  90% {
+    color: #2980b9;
+  }
+
+  100% {
+    color: pink;
+  }
+}
