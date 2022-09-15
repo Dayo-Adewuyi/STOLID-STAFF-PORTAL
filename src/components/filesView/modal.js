@@ -58,12 +58,12 @@ function ChildModal({ name, hash, id, type }) {
           <button
         className="button"
         data-clipboard-action="copy"
-        data-clipboard-target={`https://ipfs.infura.io/ipfs/${hash}`}
+        data-clipboard-target={`https://infura-ipfs.io/ipfs/${hash}`}
       >
         Copy Link
       </button>
           
-          <img alt="" src={"https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://ipfs.infura.io/ipfs/"  + hash}></img>
+          <img alt="" src={"https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://infura-ipfs.io/ipfs/"  + hash}></img>
           <Button onClick={handleClose}>Close</Button>
         </div>
       </Modal>

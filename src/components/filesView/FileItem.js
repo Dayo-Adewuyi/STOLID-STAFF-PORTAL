@@ -9,7 +9,7 @@ const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep
 const FileItem = ({ id, caption, timestamp, fileUrl, size }) => {
     // const fileDate = `${new Date(timestamp*1000).getDate()} ${monthNames[new Date(timestamp).getMonth() + 1]} ${new Date(timestamp*1000).getFullYear()}`
     // const fileDate = `${timestamp.toDate().getDate()} ${monthNames[timestamp.toDate().getMonth() + 1]} ${timestamp.toDate().getFullYear()}`
-    const fileDate=moment.unix(timestamp)
+    const fileDate = moment.unix(timestamp)
 
     const getReadableFileSizeString = (fileSizeInBytes) => {
         let i = -1;
@@ -24,7 +24,7 @@ const FileItem = ({ id, caption, timestamp, fileUrl, size }) => {
 
     return (
         <div className='fileItem'>
-            <a href={`https://ipfs.infura.io/ipfs/${fileUrl}`} target="_blank" download>
+            <a href={`https://infura-ipfs.io/ipfs/${fileUrl}`} target="_blank" download>
                 <div className="fileItem--left">
                     <InsertDriveFileIcon />
                     <p>{caption}</p>

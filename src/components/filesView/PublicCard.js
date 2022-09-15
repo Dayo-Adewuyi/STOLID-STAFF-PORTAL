@@ -38,9 +38,9 @@ const PublicCard = ({ name, hash, id, exhibit }) => {
     const [modalStyle] = useState(getModalStyle);
     const [open, setOpen] = useState(false);
     const alert = useAlert()
-    
-    
-  
+
+
+
     const handleOpen = () => {
         setOpen(true);
     };
@@ -49,57 +49,58 @@ const PublicCard = ({ name, hash, id, exhibit }) => {
         setOpen(false);
     };
 
-   
-    
-    
-    
-    const handlePrivate = async() => {
+
+
+
+
+    const handlePrivate = async () => {
         await closeCase(id)
         alert.success("Case Closed")
     }
-    
-  
-    
+
+
+
     return (
         <div className='fileCard'>
             <div className="fileCard--top">
-            
-            <InsertDriveFileIcon style={{ fontSize: 130 }} />
-        
-          
+
+                <InsertDriveFileIcon style={{ fontSize: 130 }} />
+
+
             </div>
 
             <div className="fileCard--bottom">
-                <p><a href={`https://ipfs.infura.io/ipfs/${hash}`} style={{textDecoration: 'none', color: 'black'}}>{name}</a></p> 
-                <div><span><VisibilityIcon style ={{ fontsize: 10, cursor: "pointer" } } onClick={() => handleOpen()}/></span><span><GavelSharpIcon style ={{ fontSize: 15, cursor : 'pointer'}} onClick={() => handlePrivate()} /></span></div>    
+                <p><a href={`https://infura-ipfs.io/ipfs/${hash}`} style={{ textDecoration: 'none', color: 'black' }}>{name}</a></p>
+                <div><span><VisibilityIcon style={{ fontsize: 10, cursor: "pointer" }} onClick={() => handleOpen()} /></span><span><GavelSharpIcon style={{ fontSize: 15, cursor: 'pointer' }} onClick={() => handlePrivate()} /></span></div>
             </div>
             <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description">
-             <div style={modalStyle} className={classes.paper}>
-                <iframe  src={"https://ipfs.infura.io/ipfs/"  + hash}
-                width="100%"
-                height="400px"
-                id="myId"
-                className="myClassname"
-                display="initial"
-                position="relative"
-                title="test"/>
-            <div>
-              <h3>EXHIBITS</h3>
-              {
-                exhibit.map((element,index) => {
-                  return(
-                      <ul>
-                        <li key = {index}><a href={`https://ipfs.infura.io/ipfs/${element}`} target="_blank" rel="noreferrer noopener">exhibit {index}</a> </li>
-                      </ul>
-                  )})
-              }
-            </div>
-          
-          </div>
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description">
+                <div style={modalStyle} className={classes.paper}>
+                    <iframe src={"https://infura-ipfs.io/ipfs/" + hash}
+                        width="100%"
+                        height="400px"
+                        id="myId"
+                        className="myClassname"
+                        display="initial"
+                        position="relative"
+                        title="test" />
+                    <div>
+                        <h3>EXHIBITS</h3>
+                        {
+                            exhibit.map((element, index) => {
+                                return (
+                                    <ul>
+                                        <li key={index}><a href={`https://infura-ipfs.io/ipfs/${element}`} target="_blank" rel="noreferrer noopener">exhibit {index}</a> </li>
+                                    </ul>
+                                )
+                            })
+                        }
+                    </div>
+
+                </div>
             </Modal>
         </div>
     )
