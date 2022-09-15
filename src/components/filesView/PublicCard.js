@@ -70,7 +70,7 @@ const PublicCard = ({ name, hash, id, exhibit }) => {
             </div>
 
             <div className="fileCard--bottom">
-                <p><a href={`https://stolid.infura-ipfs.io/${hash}`} style={{ textDecoration: 'none', color: 'black' }}>{name}</a></p>
+                <p><a href={`https://ipfs.io/ipfs/${hash}`} style={{ textDecoration: 'none', color: 'black' }}>{name}</a></p>
                 <div><span><VisibilityIcon style={{ fontsize: 10, cursor: "pointer" }} onClick={() => handleOpen()} /></span><span><GavelSharpIcon style={{ fontSize: 15, cursor: 'pointer' }} onClick={() => handlePrivate()} /></span></div>
             </div>
             <Modal
@@ -79,7 +79,7 @@ const PublicCard = ({ name, hash, id, exhibit }) => {
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description">
                 <div style={modalStyle} className={classes.paper}>
-                    <iframe src={"https://stolid.infura-ipfs.io/" + hash}
+                    <iframe src={"https://ipfs.io/ipfs/" + hash}
                         width="100%"
                         height="400px"
                         id="myId"
@@ -93,7 +93,7 @@ const PublicCard = ({ name, hash, id, exhibit }) => {
                             exhibit.map((element, index) => {
                                 return (
                                     <ul>
-                                        <li key={index}><a href={`https://stolid.infura-ipfs.io/${element}`} target="_blank" rel="noreferrer noopener">exhibit {index}</a> </li>
+                                        <li key={index}><a href={`https://ipfs.io/ipfs/${element}`} target="_blank" rel="noreferrer noopener">exhibit {index}</a> </li>
                                     </ul>
                                 )
                             })

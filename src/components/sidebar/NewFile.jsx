@@ -98,7 +98,7 @@ const NewFile = () => {
         try {
             const added = await ipfs.add(file)
 
-            const url = `https://ipfs.infura.io/ipfs/${added.path}`
+            const url = `https://ipfs.io/ipfs/${added.path}`
             const hash = (added.path).toString()
 
             for (let i = 0; i < uploadedFiles.length; i++) {

@@ -24,7 +24,7 @@ const FileItem = ({ id, caption, timestamp, fileUrl, size }) => {
 
     return (
         <div className='fileItem'>
-            <a href={`https://stolid.infura-ipfs.io/${fileUrl}`} target="_blank" download>
+            <a href={`https://ipfs.io/ipfs/${fileUrl}`} target="_blank" download>
                 <div className="fileItem--left">
                     <InsertDriveFileIcon />
                     <p>{caption}</p>
