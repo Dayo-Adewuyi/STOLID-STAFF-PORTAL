@@ -58,7 +58,7 @@ function ChildModal({ name, hash, id, type }) {
           <button
         className="button"
         data-clipboard-action="copy"
-        data-clipboard-target={`https://infura-ipfs.io/ipfs/${hash}`}
+        data-clipboard-target={`https://stolid.infura-ipfs.io/${hash}`}
       >
         Copy Link
       </button>

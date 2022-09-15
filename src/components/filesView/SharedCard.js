@@ -35,7 +35,7 @@ const SharedCard = ({ name, hash, address, type }) => {
       </div>
 
       <div className="fileCard--bottom">
-        <p><a href={`https://infura-ipfs.io/ipfs/${hash}`} style={{ textDecoration: 'none', color: 'black' }}>{name.slice(0, 8)}...{name.slice(-4)}</a></p>
+        <p><a href={`https://stolid.infura-ipfs.io/${hash}`} style={{ textDecoration: 'none', color: 'black' }}>{name.slice(0, 8)}...{name.slice(-4)}</a></p>
         <div> Shared by <a href={`https://mumbai.polygonscan.com/address/${address}`}>{address.slice(0, 6)}...{address.slice(-4)}</a></div>
       </div>
 

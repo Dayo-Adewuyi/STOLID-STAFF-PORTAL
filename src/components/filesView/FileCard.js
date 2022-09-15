@@ -111,7 +111,7 @@ const FileCard = ({ name, hash, id }) => {
             </div>
 
             <div className="fileCard--bottom">
-                <p><a href={`https://infura-ipfs.io/ipfs/${hash}`} style={{ textDecoration: 'none', color: 'black' }}>{name}</a></p>
+                <p><a href={`https://stolid.infura-ipfs.io/${hash}`} style={{ textDecoration: 'none', color: 'black' }}>{name}</a></p>
                 <div><span><EditIcon style={{ fontsize: 10, cursor: 'pointer' }} onClick={() => handleOpen()} /></span></div>
             </div>
             <Modal
