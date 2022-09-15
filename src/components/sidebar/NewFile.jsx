@@ -10,7 +10,7 @@ import { useAlert } from 'react-alert'
 
 const auth = 'Basic ' + Buffer.from('2Eomvq3H625IP8qyBAadDwoTA9C' + ':' + 'ce347ed17e4e9599d4b30d429991f1b5').toString('base64');
 const ipfs = create({
-    host: 'https://ipfs.infura.io:5001/api/v0',
+    host: 'ipfs.infura.io',
     port: 5001,
     protocol: 'https',
     headers: {
