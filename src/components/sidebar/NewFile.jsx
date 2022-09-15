@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import '../../styles/NewFile.css'
- import {create as ipfsHttpClient} from 'ipfs-http-client'
+import { create } from 'ipfs-http-client'
 
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,8 +8,15 @@ import Modal from '@material-ui/core/Modal';
 import { ConnectContext } from "../../context/ConnectContext";
 import { useAlert } from 'react-alert'
 
-
- const ipfs = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
+const auth = 'Basic ' + Buffer.from('2Eomvq3H625IP8qyBAadDwoTA9C' + ':' + 'ce347ed17e4e9599d4b30d429991f1b5').toString('base64');
+const ipfs = create({
+    host: 'ipfs.infura.io',
+    port: 5001,
+    protocol: 'https',
+    headers: {
+        authorization: auth,
+    },
+});;
 
 function getModalStyle() {
     return {
@@ -33,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 const MAX_COUNT = 100;
 
 const NewFile = () => {
-    const {createCase } = useContext(ConnectContext);
+    const { createCase } = useContext(ConnectContext);
     const alert = useAlert()
     const classes = useStyles();
 
@@ -42,12 +49,12 @@ const NewFile = () => {
     const [open, setOpen] = useState(false);
     const [file, setFile] = useState({})
     const [fileUrl, setFileUrl] = useState('')
-      const [uploading, setUploading] = useState(false)
-      const[description, setdescription] =useState("")
-    const [fileLimit, setFileLimit]= useState(false)
-    const [uploadedFiles, setUploadedFiles]= useState([])
-    const[judgeAddress, setJudgeAddress] = useState("")
-    const[clerkAddress, setClerkAddress] = useState("")
+    const [uploading, setUploading] = useState(false)
+    const [description, setdescription] = useState("")
+    const [fileLimit, setFileLimit] = useState(false)
+    const [uploadedFiles, setUploadedFiles] = useState([])
+    const [judgeAddress, setJudgeAddress] = useState("")
+    const [clerkAddress, setClerkAddress] = useState("")
 
 
     const handleOpen = () => {
@@ -61,11 +68,11 @@ const NewFile = () => {
     const handleUploadFiles = files => {
         const uploaded = [...uploadedFiles];
         let limitExceeded = false;
-        files.some((file)=>{
-            if(uploaded.findIndex((f)=> f.name === file.name)=== -1){
+        files.some((file) => {
+            if (uploaded.findIndex((f) => f.name === file.name) === -1) {
                 uploaded.push(file)
-                if(uploaded.length === MAX_COUNT) setFileLimit(true)
-                if(uploaded.length > MAX_COUNT){
+                if (uploaded.length === MAX_COUNT) setFileLimit(true)
+                if (uploaded.length > MAX_COUNT) {
                     alert(`you can only add a maximum of ${MAX_COUNT} files`)
                     setFileLimit(false)
                     limitExceeded = true;
@@ -73,9 +80,9 @@ const NewFile = () => {
                 }
             }
         })
-        if(!limitExceeded) setUploadedFiles(uploaded)
+        if (!limitExceeded) setUploadedFiles(uploaded)
     }
-    const handleFileEvent = (e) =>{
+    const handleFileEvent = (e) => {
         const chosenFiles = Array.prototype.slice.call(e.target.files)
         handleUploadFiles(chosenFiles)
     }
@@ -86,40 +93,41 @@ const NewFile = () => {
         }
     }
 
-    const handleUpload = async() => {
+    const handleUpload = async () => {
         setUploading(true)
         try {
             const added = await ipfs.add(file)
-            
-            const url = `https://ipfs.infura.io/ipfs/${added.path}`
-            const hash=  (added.path).toString()
 
-            for( let i = 0; i < uploadedFiles.length; i++){
+            const url = `https://ipfs.infura.io/ipfs/${added.path}`
+            const hash = (added.path).toString()
+
+            for (let i = 0; i < uploadedFiles.length; i++) {
                 const pushToIpfs = await ipfs.add(uploadedFiles[i])
                 const individualHash = (pushToIpfs.path).toString()
                 exhibits.push(individualHash)
             }
-               
-              await createCase(description,hash,judgeAddress,clerkAddress,exhibits)
-            
+
+            await createCase(description, hash, judgeAddress, clerkAddress, exhibits)
+
             //setUrl(url)
             setFileUrl(url)
-        alert.success("File successfully uploaded")
-        
-            setUploading(false)
-          
-            
-        } catch (err) {
-            console.log('Error uploading the file : ', err)}
-        
+            alert.success("File successfully uploaded")
 
-        
+            setUploading(false)
+
+
+        } catch (err) {
+            console.log('Error uploading the file : ', err)
+        }
+
+
+
     }
 
     return (
         <div className='newFile'>
             <div className="newFile__container" onClick={handleOpen}>
-                <AddIcon fontSize='large' style={{ fill : "green" }} />
+                <AddIcon fontSize='large' style={{ fill: "green" }} />
                 <p>New</p>
             </div>
 
@@ -135,27 +143,27 @@ const NewFile = () => {
                         uploading ? (
                             <p>Uploading...</p>
                         ) : (
-                                <>  
-                                    <label>CASE REF</label>
-                                    <input type='text' placeholder='case description' name = 'file Description' value={description} onChange={(e)=>setdescription(e.target.value)} required/><br></br>
-                                    <label>JUDGE ADDRESS</label>
-                                    <input type='text' placeholder='judge address' name = 'file Description' value={judgeAddress} onChange={(e)=>setJudgeAddress(e.target.value)} required/><br></br>
-                                    <label>CLERK ADDRESS</label>
-                                    <input type='text' placeholder='clerk address' name = 'file Description' value={clerkAddress} onChange={(e)=>setClerkAddress(e.target.value)} required/><br></br>
-                                    <label>Upload Case File</label>
-                                    <input type="file" onChange={handleChange}  className="input-text"/><br></br>
-                                    <label>Upload All Exhibits</label>
-                                    <input type="file" onChange={handleFileEvent}  multiple className="input-text"/><br></br>
-                                    <button onClick={handleUpload}>Submit Entry</button>
-                                    <div>{
-                                        uploadedFiles.map(file =>(
-                                            <div key = {file.name}>
-                                                {file.name}
-                                            </div>
-                                        ))
-                                        }</div>
-                                </>
-                            )
+                            <>
+                                <label>CASE REF</label>
+                                <input type='text' placeholder='case description' name='file Description' value={description} onChange={(e) => setdescription(e.target.value)} required /><br></br>
+                                <label>JUDGE ADDRESS</label>
+                                <input type='text' placeholder='judge address' name='file Description' value={judgeAddress} onChange={(e) => setJudgeAddress(e.target.value)} required /><br></br>
+                                <label>CLERK ADDRESS</label>
+                                <input type='text' placeholder='clerk address' name='file Description' value={clerkAddress} onChange={(e) => setClerkAddress(e.target.value)} required /><br></br>
+                                <label>Upload Case File</label>
+                                <input type="file" onChange={handleChange} className="input-text" /><br></br>
+                                <label>Upload All Exhibits</label>
+                                <input type="file" onChange={handleFileEvent} multiple className="input-text" /><br></br>
+                                <button onClick={handleUpload}>Submit Entry</button>
+                                <div>{
+                                    uploadedFiles.map(file => (
+                                        <div key={file.name}>
+                                            {file.name}
+                                        </div>
+                                    ))
+                                }</div>
+                            </>
+                        )
                     }
                 </div>
             </Modal>
